@@ -1,0 +1,17 @@
+{
+  "name": "err-candy",
+  "version": "0.0.1",
+  "description": "Better formatting for your errors",
+  "keywords": [],
+  "author": "Matthew Mueller <mattmuelle@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MatthewMueller/err-candy.git"
+  },
+  "dependencies": {
+    "stack-utils": "^0.4.0"
+  },
+  "devDependencies": {
+  },
+  "main": "index"
+}
