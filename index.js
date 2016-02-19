@@ -13,12 +13,13 @@ module.exports = error
 /**
  * Clean up or combine errors
  *
- * @param {Error|Array} err
+ * @param {Error|Array} errors
  * @return {Error}
  */
 
-function error (err) {
-  return Array.isArray(err) ? combine(err) : improve(err, '  [1]: ')
+function error (errors) {
+  errors = Array.isArray(errors) ? errors : [errors]
+  return combine(errors)
 }
 
 /**
@@ -30,7 +31,9 @@ function combine (errors) {
     return improve(error, `  [${i+1}]: `)
   })
 
-  var prelude = `There are ${errors.length} errors:\n\n`
+  var prelude = errors.length > 1
+    ? `There are ${errors.length} errors:\n\n`
+    : ''
 
   var message = errors.reduce(function (message, error, i) {
     return message += error.message + '\n\n'

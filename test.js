@@ -14,7 +14,7 @@ var err = candy([
   babel_error,
   new Error('c')
 ])
-// throw err
+throw err
 // console.log(err.message)
 
 var a = candy(new Error('omg wtf!!!!'))
