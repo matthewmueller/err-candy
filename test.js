@@ -3,7 +3,7 @@ var candy = require('./')
 var babel_error
 
 try {
-  babel.transform('())(')
+  babel.transform('(function () {}')
 } catch (e) {
   babel_error = e
 }
@@ -14,8 +14,10 @@ var err = candy([
   babel_error,
   new Error('c')
 ])
-throw err
-// console.log(err.message)
+// throw err
+// // console.log(err.message)
 
 var a = candy(new Error('omg wtf!!!!'))
-throw a
+// throw a
+
+throw candy([err, a])

@@ -27,25 +27,24 @@ function error (errors) {
  */
 
 function combine (errors) {
+  if (errors.length === 1) return improve(errors[0])
+
   errors = errors.map(function(error, i) {
-    return improve(error, `  [${i+1}]: `)
+    return improve(error)
   })
 
-  var prelude = errors.length > 1
-    ? `There are ${errors.length} errors:\n\n`
-    : ''
+  var message = errors.map(function (error) {
+    return error.message
+  }).join('\n\n')
 
-  var message = errors.reduce(function (message, error, i) {
-    return message += error.message + '\n\n'
-  }, prelude)
-
-  var stack = errors.reduce(function (stack, error, i) {
-    return stack += error.stack
-  }, prelude)
+  var stack = errors.map(function (error) {
+    return error.stack
+  }).join('')
 
   var error = new Error()
   error.message = message
   error.stack = stack
+  error.candy = true
 
   return error
 }
@@ -58,13 +57,16 @@ function combine (errors) {
  */
 
 function improve (err, prefix) {
-  prefix = prefix || ''
+  if (err.candy) return err
+
+  prefix = prefix || '  \u2716 '
 
   // clean the stack
   var stack = clean(err.stack)
 
   // create a new error
   var error = new Error()
+  error.candy = true
 
   // improve the message
   var message = normalize(err)
@@ -79,19 +81,6 @@ function improve (err, prefix) {
 }
 
 /**
- * Create a prelude
- *
- * @param {Number} n
- * @return {String}
- */
-
-function prelude (n) {
-  return n != 1
-    ? `There are ${n} errors:\n\n`
-    : `There is 1 error:\n\n`
-}
-
-/**
  * Normalize the message
  *
  * @param {Error} err
@@ -100,7 +89,7 @@ function prelude (n) {
 
 function normalize (err) {
   if (err.codeFrame) { // babelify@6.x
-    return [err.message, indent(err.codeFrame, 2)].join('\n\n')
+    return [err.message, indent(err.codeFrame, 4)].join('\n\n')
   } else { // babelify@5.x and browserify
     return err.annotated || err.message
   }
@@ -121,7 +110,7 @@ function clean (stack) {
   .clean(stack)
   .split('\n')
   .filter(line => line)
-  .map(line => '   \u25B8 ' + line)
+  .map(line => '    \u25B8 ' + line)
   .join('\n')
 }
 
