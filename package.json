@@ -1,6 +1,6 @@
 {
   "name": "err-candy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Better formatting for your errors",
   "keywords": [],
   "author": "Matthew Mueller <mattmuelle@gmail.com>",
@@ -11,7 +11,6 @@
   "dependencies": {
     "stack-utils": "^0.4.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "main": "index"
 }
