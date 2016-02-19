@@ -109,8 +109,8 @@ function clean (stack) {
   })
   .clean(stack)
   .split('\n')
-  .filter(line => line)
-  .map(line => '    \u25B8 ' + line)
+  .filter(function (line) { return line })
+  .map(function (line) { return '    \u25B8 ' + line })
   .join('\n')
 }
 
