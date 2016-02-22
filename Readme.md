@@ -12,7 +12,7 @@
 ## Installation
 
 ```
-npm install error
+npm install err-candy
 ```
 
 ## Usage
