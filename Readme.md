@@ -1,3 +1,4 @@
+*DEPRECATED* use this instead: https://github.com/matthewmueller/combine-errors
 
 # err-candy
 
